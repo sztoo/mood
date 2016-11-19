@@ -1,3 +1,3 @@
-# Wildhacks Projects
+# Wildhacks Project
 
 TODO: write readme.
