@@ -32,6 +32,32 @@ export default {
     }
   },
 
+  computed: {
+    background () {
+      const scores = this.scores
+
+      const orderedScores = Object.keys(scores).map(emotion => [emotion, scores[emotion]])
+            .sort(([e1, s1], [e2, s2]) => s2 - s1)
+
+      const [colorLeft, colorRight] = orderedScores.slice(0,2).map(pair => this.colors[pair[0]])
+
+      return {
+        background: `linear-gradient(to right, ${colorLeft}, ${colorRight})`,
+      }
+    },
+
+    colors() {
+      return {
+        anger: `hsla(353, ${this.scores.anger * 100}%, 43%, 1)`,
+        disgust: `hsla(11, ${this.scores.disgust * 100}%, 59%, 1)`,
+        fear: `hsla(48, ${this.scores.fear * 100}%, 56%, 1)`,
+        joy: `hsla(137, ${this.scores.joy * 100}%, 41%, 1)`,
+        sadness: `hsla(228, ${this.scores.sadness * 100}%, 40%, 1)`,
+      }
+    },
+
+  },
+
   components: {
     MyEmo
   },
@@ -70,3 +96,12 @@ export default {
 }
 
 </script>
+
+
+<style>
+.wrap {
+  height: 100vh;
+  width: 100vw;
+}
+
+</style>
