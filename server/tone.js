@@ -15,7 +15,7 @@ function analyze(text) {
       if (err)
         reject(err)
       else
-        resolve(JSON.stringify(tone, null, 2))
+        resolve(tone)
     })
   })
 }
