@@ -5,7 +5,7 @@
         {{ word }}
       </li>
     </ul>
-
+    <my-emo></my-emo>
   </div>
 
 </template>
@@ -13,19 +13,25 @@
 <script>
 import { text$ } from '../speechToText'
 import { socket } from '../socket'
+import { MyEmo } from './components/MyEmo.vue'
 
 export default {
   name: 'Home',
 
   data () {
     return {
-      recognizedWords: ['hello!'],
+      recognizedWords: [],
     }
+  },
+
+  components: {
+    MyEmo
   },
 
   subscriptions () {
     return {
       text$: text$
+        .do(text => console.log(text))
         .do(text => {
           const prevRecognizedWords = this.recognizedWords
           this.recognizedWords = [text, ...prevRecognizedWords]
@@ -45,6 +51,7 @@ export default {
         .do(res => console.log(JSON.parse(JSON.stringify(res))))
     }
   },
+
 }
 
 </script>
