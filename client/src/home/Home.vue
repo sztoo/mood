@@ -1,10 +1,6 @@
 <template>
-  <div class="wrap">
-    <ul>
-      <li v-for="word of recognizedWords">
-        {{ word }}
-      </li>
-    </ul>
+  <div :style="background" class="wrap">
+    <p>{{ recognizedWords[0] }}</p>
     <div>{{ scores }}</div>
     <my-emo></my-emo>
   </div>
@@ -14,7 +10,7 @@
 <script>
 import { text$ } from '../speechToText'
 import { socket } from '../socket'
-import { MyEmo } from './components/MyEmo.vue'
+import MyEmo from './components/MyEmo.vue'
 
 export default {
   name: 'Home',

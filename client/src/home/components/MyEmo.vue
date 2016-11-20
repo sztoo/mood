@@ -17,26 +17,10 @@
 <script>
   export default {
     name: 'theemotion',
-    data() {
-      return {}
-    }
   }
 </script>
 
 <style>
-  html, body {
-  width: 100%;  
-  height: 100%;
-  background: #76b852;
-  background: -webkit-linear-gradient(to left, #76b852 , #8DC26F);
-  background: linear-gradient(to left, #76b852 , #8DC26F);
-  overflow: hidden;
-  -webkit-font-smoothing: antialiased;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 h1 {
   height: 100px;
 }
