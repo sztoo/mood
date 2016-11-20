@@ -5,6 +5,7 @@
         {{ word }}
       </li>
     </ul>
+    <div>{{ scores }}</div>
     <my-emo></my-emo>
   </div>
 
@@ -54,7 +55,15 @@ export default {
             scores: score.tones.map(tone => ({ tone: tone.tone_id, score: tone.score })),
           }))[0]
         })
-        .do(res => console.log(JSON.parse(JSON.stringify(res))))
+        .map(
+          result => result.scores.reduce((acc, curr) => {
+            const key = curr.tone
+            const val = curr.score
+            acc[key] = val
+            return acc
+          }, {})
+        )
+        .do(res => this.scores = res)
     }
   },
 
