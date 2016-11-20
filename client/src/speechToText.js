@@ -26,6 +26,5 @@ const recognitionResults$ = recognitionEvents$
       .flatMap(event => Array.prototype.map.call(event.results, result => result[0]))
 
 export const text$ = recognitionResults$
-  .do(r => console.log(r))
-  .filter(result => result.transcript && result.confidence > 0.7)
+  .filter(result => result.transcript && result.confidence > 0.6)
   .map(result => result.transcript)

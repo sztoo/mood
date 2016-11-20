@@ -23,14 +23,12 @@ export default {
   subscriptions () {
     return {
       text$: text$
-        .do(text => console.log(text))
         .do(text => {
           const prevRecognizedWords = this.recognizedWords
           this.recognizedWords = [text, ...prevRecognizedWords]
         }),
     }
   },
-
 }
 
 </script>
