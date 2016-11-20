@@ -7,8 +7,9 @@ function initialize(recognitionObject, config) {
 }
 
 const config = {
-  continuous: true,
-  interimResults: true,
+  continuous: false,
+  interimResults: false,
+  lang: 'en-US'
 }
 
 const recognition = initialize(new webkitSpeechRecognition(),
@@ -16,20 +17,15 @@ const recognition = initialize(new webkitSpeechRecognition(),
 
 const recognitionEvents$ = Rx.Observable.fromEvent(recognition, 'result')
 
-// here we map stream of speech recognition events into a stream of results, each
-// of which has text and confidence level
-const recognitionResults$ = recognitionEvents$
-  // Array.prototype.map.call is required because event.results is an array-like object
-  // flatMap flattens those arrays
-  // try chaining .do with console.log to see what those events are
-  .flatMap(event => Array.prototype.map.call(event.results, result => result[0]))
+const recognitionEnd$ = Rx.Observable.fromEvent(recognition, 'end')
+      .do(_ => recognition.start())
+      .subscribe(e => console.log('received end'))
 
-// here we filter down our results by the confidence level
-// and then map them into plain text
+const recognitionResults$ = recognitionEvents$
+      .do(res => console.log(res))
+      .flatMap(event => Array.prototype.map.call(event.results, result => result[0]))
+
 export const text$ = recognitionResults$
-  // here we log our results to console
   .do(r => console.log(r))
-  // get only the results with high enough confidence
-  .filter(result => result.transcript && result.confidence > 0.5)
-  // and grab the transcripts
+  .filter(result => result.transcript && result.confidence > 0.7)
   .map(result => result.transcript)
