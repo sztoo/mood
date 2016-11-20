@@ -21,6 +21,13 @@ export default {
   data () {
     return {
       recognizedWords: [],
+      scores: {
+        anger: 0,
+        disgust: 0,
+        fear: 0,
+        joy: 0,
+        sadness: 0,
+      },
     }
   },
 
@@ -31,7 +38,6 @@ export default {
   subscriptions () {
     return {
       text$: text$
-        .do(text => console.log(text))
         .do(text => {
           const prevRecognizedWords = this.recognizedWords
           this.recognizedWords = [text, ...prevRecognizedWords]
