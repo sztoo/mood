@@ -7,7 +7,13 @@ console.log('started ws server on 8081')
 
 wss.on('connection', (ws) => {
   ws.on('message', (rawMessage) => {
-    const message = JSON.parse(rawMessage)
+
+    let message
+    try {
+      message = JSON.parse(rawMessage)
+    } catch (err) {
+      message = { type: 'UNKNOWN', payload: rawMessage }
+    }
 
     switch (message.type) {
     case 'ANALYZE':
@@ -19,5 +25,4 @@ wss.on('connection', (ws) => {
       break
     }
   })
-  ws.send('something')
 })

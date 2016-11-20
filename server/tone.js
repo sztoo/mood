@@ -12,8 +12,10 @@ function analyze(text) {
     tone_analyzer.tone({
       text,
     }, (err, tone) => {
-      if (err)
+      if (err) {
+        console.log(err)
         reject(err)
+      }
       else
         resolve(tone)
     })
