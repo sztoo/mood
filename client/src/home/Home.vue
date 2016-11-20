@@ -12,6 +12,7 @@
 
 <script>
 import { text$ } from '../speechToText'
+import { socket } from '../socket'
 
 export default {
   data () {
