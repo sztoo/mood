@@ -16,7 +16,7 @@ import { text$ } from '../speechToText'
 export default {
   data () {
     return {
-      recognizedWords: ['bye!'],
+      recognizedWords: ['hello!'],
     }
   },
 
