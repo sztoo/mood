@@ -15,6 +15,8 @@ import { text$ } from '../speechToText'
 import { socket } from '../socket'
 
 export default {
+  name: 'Home',
+
   data () {
     return {
       recognizedWords: ['hello!'],
@@ -27,7 +29,20 @@ export default {
         .do(text => {
           const prevRecognizedWords = this.recognizedWords
           this.recognizedWords = [text, ...prevRecognizedWords]
+        })
+        .do(text => {
+          socket.send({ type: 'ANALYZE', payload: text })
         }),
+
+      messages$: socket.socketMessages$
+        .map(msg => {
+          const scores = msg.payload.document_tone.tone_categories
+          return scores.map(score => ({
+            category: score.category_id,
+            scores: score.tones.map(tone => ({ tone: tone.tone_id, score: tone.score })),
+          }))[0]
+        })
+        .do(res => console.log(JSON.parse(JSON.stringify(res))))
     }
   },
 }
